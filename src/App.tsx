@@ -12,6 +12,7 @@ import Register from './components/register/Register';
 import Navbar from './components/navbar/Navbar'
 import Landing from './components/landing/Landing';
 import { AddProduct } from './components/AdminProducts/AddProducts';
+import { UpdateProduct } from './components/AdminProducts/UpdateProduct';
 
 
 function App() {
@@ -68,8 +69,9 @@ useEffect(()=>{
         {login.logged&&
           <Route path="/products" element={<DisplayProducts />} />
         }
-        {login.role==="Admin"&&<> 
+        {login.role==="Admin"&&<>
           <Route path="/AddProducts" element={<AddProduct/>} />
+          <Route path="/updateproduct" element={<UpdateProduct/>} />
           </>}
           {login.logged===false&&<>
             <Route path="/login" element={<Login logged={logged}/>} />

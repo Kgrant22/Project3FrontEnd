@@ -14,7 +14,7 @@ export class AddProduct extends React.Component <any,any>{
                 name: "",
                 description: "",
                 price: "",
-                url: "",
+                image: "",
                 quantity: "",
                 products: []
             }
@@ -57,11 +57,17 @@ export class AddProduct extends React.Component <any,any>{
                             <input type="number"  value={this.state.quantity} onChange={event => this.updateInputValue("quantity", event)}required></input><br></br>
                             </li>
                             <li><span className="AddProductText">Image of Product: </span><br></br>
-                            <input type="text" value={this.state.url} onChange={event => this.updateInputValue("url", event)}required></input><br></br>
+                            <input type="text" value={this.state.image} onChange={event => this.updateInputValue("image", event)}></input><br></br>
                             </li>
                             <li><button type="submit">Add Product</button></li>
                         </ul>
                     </form>
+                </div>
+                <div>
+                {/*{this.state.products&&<>
+                {this.state.products.map((item:any) => {
+                    <div><UpdateProduct product={item} key={item.id}/></div>
+                })}</>}*/}
                 </div>
                 </div>
             )
@@ -75,12 +81,13 @@ export class AddProduct extends React.Component <any,any>{
         let name = this.state.name;
         let description = this.state.dscription;
         let price = this.state.description;
-        let url = this.state.url;
+        let image = this.state.image;
+        let quantity = this.state.quantity
         const response = await apiUpsertProduct({
             name: this.state.name,
             description: this.state.description,
             price: this.state.price,
-            image: this.state.url,
+            image: this.state.image,
             quantity: this.state.quantity
         })
 
