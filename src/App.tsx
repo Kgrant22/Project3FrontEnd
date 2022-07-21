@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import './App.css';
 import { CartContext } from './context/cart.context';
 import ProductItem from './models/Product';
@@ -9,9 +9,16 @@ import Checkout from './components/checkout/Checkout';
 import { DisplayProducts } from "./components/display-products/DisplayProducts";
 import Login from './components/login/Login';
 import Register from './components/register/Register';
-import Navbar from './components/navbar/Navbar'
+import Navbar from './components/navbar/Navbar';
 import Landing from './components/landing/Landing';
+import { DisplayFeaturedProducts } from './components/display-featured/DisplayFeatured';
+import { DisplaySales } from './components/display-sales/DisplaySales';
 import { AddProduct } from './components/AdminProducts/AddProducts';
+import { DisplayFeaturedProduct } from './components/Admin-featured-Products/DisplayFeaturedProducts';
+import { DisplayAllProducts } from './components/Admin-All-Products/Display-All-Products';
+import {DisplayProductsOnSale} from './components/Admin-ProductOnSale/DisplayProductsOnSale';
+import ProductDetail  from './components/display-products/ProductDetail';
+import Footer from './components/footer/Footer';
 import { UpdateProduct } from './components/AdminProducts/UpdateProduct';
 
 
@@ -51,14 +58,7 @@ function App() {
   }
 
  
-useEffect(()=>{
-  
-  
-  fetchData()
-  
-  console.log(login)
-},[login.id]
-  )
+
 
   return (
     <HashRouter>
@@ -67,12 +67,22 @@ useEffect(()=>{
         <Routes>
         <Route path="/" element={<Landing />} />
         {login.logged&&
+        <>
+         <Route path="/featured" element={<DisplayFeaturedProducts />} /> 
+          <Route path="/sales" element={<DisplaySales />} />
           <Route path="/products" element={<DisplayProducts />} />
+          <Route path="/products/:id" element={<ProductDetail/>} />
+        </>
         }
         {login.role==="Admin"&&<>
           <Route path="/AddProducts" element={<AddProduct/>} />
           <Route path="/updateproduct" element={<UpdateProduct/>} />
           </>}
+          {login.logged===true&&login.role==="Admin"&&<>
+          <Route path="/Admin-All-Products" element={<DisplayAllProducts />} />
+          <Route path="/Admin-ProductOnSale" element={<DisplayProductsOnSale />} />
+          <Route path="/Admin-featured-Products" element={<DisplayFeaturedProduct />} /></>
+          }
           {login.logged===false&&<>
             <Route path="/login" element={<Login logged={logged}/>} />
             <Route path="/register" element={<Register />} />
@@ -82,6 +92,7 @@ useEffect(()=>{
           <Route path="/cart" element={<Cart />} />
         </Routes>
       </CartContext.Provider>
+      <Footer />
     </HashRouter>
   )
 }
